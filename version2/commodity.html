@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ commodity_name.capitalize() }} Price Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 20px; }
+        .graph { margin-bottom: 40px; }
+        .form-container { text-align: center; margin-bottom: 40px; }
+        label { margin-right: 10px; }
+        input, select { margin-right: 20px; padding: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ commodity_name.capitalize() }} Price Analysis</h1>
+        <div class="graph">
+            <h2>Temperature Over Time</h2>
+            <div>{{ graph_temp|safe }}</div>
+        </div>
+        <div class="graph">
+            <h2>Rainfall Over Time</h2>
+            <div>{{ graph_rain|safe }}</div>
+        </div>
+        <div class="graph">
+            <h2>Humidity Over Time</h2>
+            <div>{{ graph_humidity|safe }}</div>
+        </div>
+        <div class="graph">
+            <h2>{{ commodity_name.capitalize() }} Price Over Time</h2>
+            <div>{{ graph_price|safe }}</div>
+        </div>
+        <div class="graph">
+            <h2>Correlation Matrix</h2>
+            <div>{{ correlation_matrix|safe }}</div>
+        </div>
+        <div class="form-container">
+            <h2>Predict {{ commodity_name.capitalize() }} Price</h2>
+            <form method="POST" action="/commodity/{{ commodity_name }}/predict">
+                <label for="temp">Temperature:</label>
+                <input type="number" id="temp" name="temp" step="0.01" required>
+                <label for="feelslike">Feels Like:</label>
+                <input type="number" id="feelslike" name="feelslike" step="0.01" required>
+                <label for="humidity">Humidity:</label>
+                <input type="number" id="humidity" name="humidity" step="0.01" required>
+                <label for="precip">Precipitation:</label>
+                <input type="number" id="precip" name="precip" step="0.01" required>
+                <label for="windspeed">Wind Speed:</label>
+                <input type="number" id="windspeed" name="windspeed" step="0.01" required>
+                <label for="windgust">Wind Gust:</label>
+                <input type="number" id="windgust" name="windgust" step="0.01" required>
+                <label for="solarradiation">Solar Radiation:</label>
+                <input type="number" id="solarradiation" name="solarradiation" step="0.01" required>
+                <label for="solarenergy">Solar Energy:</label>
+                <input type="number" id="solarenergy" name="solarenergy" step="0.01" required>
+                <label for="uvindex">UV Index:</label>
+                <input type="number" id="uvindex" name="uvindex" step="0.01" required>
+                <button type="submit">Predict</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
